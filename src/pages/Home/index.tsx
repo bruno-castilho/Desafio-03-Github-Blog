@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Profile } from '../../components/Profile'
-import { Filter, Publications } from './styles'
+import { SearchForm, Publications } from './styles'
 import { api } from '../../lib/axios'
 import { Publication } from '../../components/Publication'
+
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const searchFormSchema = z.object({
+  query: z.string(),
+})
+
+type SearchFormInputs = z.infer<typeof searchFormSchema>
 
 export interface Issue {
   number: number
@@ -13,15 +23,22 @@ export interface Issue {
 
 export function Home() {
   const [issues, setIssues] = useState<Issue[]>([])
+  const { register, handleSubmit } = useForm<SearchFormInputs>({
+    resolver: zodResolver(searchFormSchema),
+  })
 
-  async function fetchProfile() {
+  async function fetchProfile(query = '') {
     const response = await api.get('/search/issues', {
       params: {
-        q: 'repo:bruno-castilho/Desafio-03-Github-Blog',
+        q: `${query} repo:bruno-castilho/Desafio-03-Github-Blog`,
       },
     })
 
     setIssues(response.data.items)
+  }
+
+  async function handleSearchIssues(data: SearchFormInputs) {
+    await fetchProfile(data.query)
   }
 
   useEffect(() => {
@@ -32,13 +49,17 @@ export function Home() {
     <>
       <Profile />
       <section style={{ marginTop: '72px' }}>
-        <Filter>
+        <SearchForm onSubmit={handleSubmit(handleSearchIssues)}>
           <div>
             <label htmlFor="">Publicações</label>
             <span>6 publicações</span>
           </div>
-          <input type="text" placeholder="Buscar conteúdo" />
-        </Filter>
+          <input
+            type="text"
+            placeholder="Buscar conteúdo"
+            {...register('query')}
+          />
+        </SearchForm>
 
         <Publications>
           {issues.map((issue) => (
