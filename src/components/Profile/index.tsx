@@ -23,7 +23,6 @@ export function Profile() {
 
   async function fetchProfile() {
     const response = await api.get('/users/bruno-castilho', {})
-    console.log(response.data)
     setUser(response.data)
   }
 

@@ -57,6 +57,7 @@ export const User = styled.div`
     line-height: 160%;
 
     display: flex;
+    align-items: center;
 
     gap: 8px;
   }

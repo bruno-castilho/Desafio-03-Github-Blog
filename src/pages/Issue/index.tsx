@@ -2,6 +2,7 @@ import { ArrowSquareOut, CaretLeft } from 'phosphor-react'
 import { Header, Menu, Info, Title, Content } from './styles'
 import { Link, useParams } from 'react-router-dom'
 import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import github from '../../assets/github.svg'
 import date from '../../assets/date.svg'
@@ -21,6 +22,7 @@ export function Issue() {
       `/repos/bruno-castilho/Desafio-03-Github-Blog/issues/${id}`,
     )
 
+    console.log(response.data)
     setIssue(response.data)
   }
 
@@ -33,12 +35,12 @@ export function Issue() {
       <Header>
         <Menu>
           <Link to={'/'}>
-            <CaretLeft />
+            <CaretLeft size={12} />
             <span>voltar</span>
           </Link>
           <a href={issue.html_url}>
             <span>ver no github</span>
-            <ArrowSquareOut weight="bold" />
+            <ArrowSquareOut weight="bold" size={12} />
           </a>
         </Menu>
         <Title>{issue.title}</Title>
@@ -63,7 +65,7 @@ export function Issue() {
         </Info>
       </Header>
       <Content>
-        <Markdown>{issue.body}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{issue.body}</Markdown>
       </Content>
     </>
   )

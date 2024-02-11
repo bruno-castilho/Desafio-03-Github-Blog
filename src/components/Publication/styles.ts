@@ -5,18 +5,18 @@ export const PublicationContainer = styled.div`
   height: 260px;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;
+  border: 2px solid transparent;
   padding: 32px;
   cursor: pointer;
 
   &:hover {
-    padding: 30px;
     border: 2px solid ${(props) => props.theme['base-label']};
   }
 
   & > div {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    gap: 8px;
   }
 
   & > div > h3 {

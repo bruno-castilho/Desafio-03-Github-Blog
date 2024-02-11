@@ -19,7 +19,7 @@ export const Menu = styled.div`
     line-height: 160%;
 
     display: flex;
-
+    align-items: center;
     gap: 8px;
   }
 `
@@ -53,5 +53,21 @@ export const Content = styled.main`
 
   pre {
     margin-bottom: 20px;
+  }
+
+  a {
+    color: ${(props) => props.theme.blue};
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
   }
 `
