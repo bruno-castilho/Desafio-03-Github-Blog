@@ -42,4 +42,16 @@ export const Info = styled.div`
 `
 export const Content = styled.main`
   padding: 40px 32px;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  pre {
+    margin-bottom: 20px;
+  }
 `

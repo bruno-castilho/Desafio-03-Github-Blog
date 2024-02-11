@@ -14,20 +14,27 @@ const searchFormSchema = z.object({
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>
 
-export interface Issue {
+interface User {
+  login: string
+}
+
+export interface IssueType {
   number: number
   title: string
   body: string
   created_at: string
+  comments: number
+  html_url: string
+  user: User
 }
 
 export function Home() {
-  const [issues, setIssues] = useState<Issue[]>([])
+  const [issues, setIssues] = useState<IssueType[]>([])
   const { register, handleSubmit } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   })
 
-  async function fetchProfile(query = '') {
+  async function fetchIssues(query = '') {
     const response = await api.get('/search/issues', {
       params: {
         q: `${query} repo:bruno-castilho/Desafio-03-Github-Blog`,
@@ -38,11 +45,11 @@ export function Home() {
   }
 
   async function handleSearchIssues(data: SearchFormInputs) {
-    await fetchProfile(data.query)
+    await fetchIssues(data.query)
   }
 
   useEffect(() => {
-    fetchProfile()
+    fetchIssues()
   }, [])
 
   return (
