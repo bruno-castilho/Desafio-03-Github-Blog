@@ -1,0 +1,11 @@
+import styled from 'styled-components'
+
+export const LayoutContainer = styled.div`
+  width: 1440px;
+  margin: 0 auto;
+`
+
+export const Viewport = styled.main`
+  width: 864px;
+  margin: -88px auto;
+`
