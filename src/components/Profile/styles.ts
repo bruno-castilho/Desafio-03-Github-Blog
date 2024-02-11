@@ -19,6 +19,15 @@ export const ProfileContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
   }
+
+  & > div > p {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
 
 export const Avatar = styled.img`
