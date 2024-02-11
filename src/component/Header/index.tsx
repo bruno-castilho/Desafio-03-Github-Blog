@@ -2,8 +2,12 @@ import Image from '../../assets/Cover.svg'
 
 export function Header() {
   return (
-    <header>
-      <img src={Image} alt="" />
-    </header>
+    <header
+      style={{
+        width: '1440px',
+        height: '296px',
+        backgroundImage: `url(${Image})`,
+      }}
+    />
   )
 }
