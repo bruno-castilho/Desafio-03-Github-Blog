@@ -23,6 +23,8 @@ export const GlobalStyle = createGlobalStyle`
     body, input, textarea, button {
         font: 400 1rem Nunito, sans-serif;
         line-height: 160%;
+        font-size: 16px;
+        color: ${(props) => props.theme['base-text']};
     }
 
 `
