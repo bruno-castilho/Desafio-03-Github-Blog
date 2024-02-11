@@ -2,40 +2,61 @@ import { ArrowSquareOut } from 'phosphor-react'
 
 import { Avatar, ProfileContainer, Info, User } from './styles'
 
-import avatar from '../../assets/avatar.svg'
 import github from '../../assets/github.svg'
 import company from '../../assets/company.svg'
 import followers from '../../assets/followers.svg'
+import { api } from '../../lib/axios'
+import { useEffect, useState } from 'react'
+
+interface User {
+  login: string
+  name: string
+  html_url: string
+  blog: string
+  followers: number
+  avatar_url: string | null
+  company: string | null
+}
 
 export function Profile() {
+  const [user, setUser] = useState<User>({} as User)
+
+  async function fetchProfile() {
+    const response = await api.get('/users/bruno-castilho', {})
+    console.log(response.data)
+    setUser(response.data)
+  }
+
+  useEffect(() => {
+    fetchProfile()
+  }, [])
+
   return (
     <ProfileContainer>
-      <Avatar src={avatar} alt="" />
+      <Avatar src={user.avatar_url ? user.avatar_url : ''} alt="" />
       <div>
         <User>
-          <strong>Cameron Williamson</strong>
-          <a href="">
+          <strong>{user.name}</strong>
+          <a href={user.html_url}>
             <span>github</span>
             <ArrowSquareOut weight="bold" />
           </a>
         </User>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{user.blog}</p>
         <Info>
           <div>
             <img src={github} alt="" />
-            <span>cameronwll</span>
+            <span>{user.login}</span>
           </div>
-          <div>
-            <img src={company} alt="" />
-            <span>Rocketseat</span>
-          </div>
+          {user.company && (
+            <div>
+              <img src={company} alt="" />
+              <span>{user.company}</span>
+            </div>
+          )}
           <div>
             <img src={followers} alt="" />
-            <span>32 seguidores</span>
+            <span>{user.followers}</span>
           </div>
         </Info>
       </div>

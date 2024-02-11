@@ -14,7 +14,10 @@ export const ProfileContainer = styled.div`
   align-items: center;
 
   & > div {
+    display: flex;
     height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
   }
 `
 
@@ -25,6 +28,7 @@ export const Avatar = styled.img`
 `
 
 export const User = styled.div`
+  width: 612px;
   display: flex;
   justify-content: space-between;
   align-items: top;
